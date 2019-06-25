@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../message.dart';
+import 'dart:math';
 
 class HomePage extends StatefulWidget {
   @override
@@ -128,10 +130,11 @@ class HomeState extends State {
   }
 
   Widget _buildTitle(BuildContext context) {
+    final _random = new Random();
     return InkWell(
         onLongPress: () {
           _scaffoldKey.currentState.showSnackBar(SnackBar(
-            content: Text("Woks"),
+            content: Text(messages[_random.nextInt(messages.length)]),
             duration: Duration(seconds: 1),
           ));
         },
