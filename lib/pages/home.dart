@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:launch_review/launch_review.dart';
 import 'package:share/share.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 Widget _buildTitle(BuildContext context) {
   return InkWell(
@@ -48,6 +49,47 @@ Widget _buildCard(BuildContext context, String text, IconData icon) {
       ));
 }
 
+Widget _buildCalendarCard(BuildContext context, String text, IconData icon) {
+  return GestureDetector(
+      onTap: () {
+        _launchURL(
+            "https://github.com/godcrampy/svnit-101-serve/raw/master/academic-calendar.pdf");
+      },
+      child: Card(
+        color: Color(0xfff86942),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15.0),
+        ),
+        child: Container(
+            padding: EdgeInsets.all(10),
+            height: MediaQuery.of(context).size.width * .35,
+            width: MediaQuery.of(context).size.width * .35,
+            child:
+                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+              Text(
+                text,
+                style: TextStyle(
+                    fontFamily: 'Oswald',
+                    fontSize: MediaQuery.of(context).size.width * .07,
+                    color: Colors.white),
+              ),
+              Icon(
+                icon,
+                color: Colors.white,
+                size: MediaQuery.of(context).size.width * .12,
+              )
+            ])),
+      ));
+}
+
+_launchURL(String url) async {
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
+}
+
 Widget _buildGrid(BuildContext context) {
   return Column(children: [
     Row(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -67,7 +109,7 @@ Widget _buildGrid(BuildContext context) {
       height: MediaQuery.of(context).size.height * 0.04,
     ),
     Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-      _buildCard(context, 'Calendar', Icons.event),
+      _buildCalendarCard(context, 'Calendar', Icons.event),
       SizedBox(width: MediaQuery.of(context).size.width * 0.07),
       _buildCard(context, 'Settings', Icons.settings),
     ]),

@@ -54,8 +54,8 @@ class DrawingSem extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       children: <Widget>[
-        _buildSubjectCard("Basics of Civil and Environment Engineering ", 4,
-            Icons.domain, 'civil'),
+        _buildSubjectCard("Mathematics-I ", 4,
+            Icons.functions, 'civil'),
         _buildSubjectCard(
             "Engineering Mathematics", 4, Icons.all_inclusive, 'maths'),
         _buildSubjectCard(
