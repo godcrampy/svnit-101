@@ -5,6 +5,7 @@ import 'package:svnit_101/pages/events.dart';
 import 'package:svnit_101/pages/home.dart';
 import 'package:svnit_101/pages/map.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
+import 'package:svnit_101/pages/settings.dart';
 
 void main() => runApp(MyApp());
 
@@ -20,11 +21,12 @@ class MyApp extends StatelessWidget {
           brightness: brightness),
       themedWidgetBuilder: (context, theme) {
         return MaterialApp(title: 'SVNIT 101', theme: theme, routes: {
-          '/': (BuildContext context) => HomePage(context),
+          '/': (BuildContext context) => HomePage(),
           '/canteen': (BuildContext context) => CanteenPage(),
           '/map': (BuildContext context) => MapPage(),
           '/curriculum': (BuildContext context) => CurriculumPage(),
-          '/updates': (BuildContext context) => EventsPage()
+          '/updates': (BuildContext context) => EventsPage(),
+          '/settings': (BuildContext context) => SettingsPage()
         });
       },
     );
