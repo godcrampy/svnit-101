@@ -13,9 +13,10 @@ Widget _buildSubjectCard(String name, int credits, IconData icon, String key) {
   return InkWell(
       splashColor: Colors.deepOrange,
       onTap: () {
-        _launchURL('https://github.com/godcrampy/svnit-101-serve/raw/master/' +
-            key +
-            '.pdf');
+        _launchURL(
+            'https://github.com/godcrampy/svnit-101/raw/master/data/workshop-sem/' +
+                key +
+                '.pdf');
       },
       child: Card(
           elevation: 7.0,
@@ -40,13 +41,15 @@ Widget _buildSubjectCard(String name, int credits, IconData icon, String key) {
               ),
               subtitle: Row(
                 children: <Widget>[
-                  Text(credits.toString() + " credits",
+                  Text(
+                      credits != 0
+                          ? credits.toString() + " credits"
+                          : "0 credits 😆",
                       style: TextStyle(
                           color: Colors.grey, fontWeight: FontWeight.bold))
                 ],
               ),
-              trailing: Icon(Icons.keyboard_arrow_right,
-                  color: Colors.white, size: 30.0))));
+              trailing: Icon(Icons.keyboard_arrow_right, size: 30.0))));
 }
 
 class WorkshopSem extends StatelessWidget {
@@ -54,19 +57,81 @@ class WorkshopSem extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       children: <Widget>[
+        _buildSubjectCard("Mathematics-II", 4, Icons.functions, 'maths'),
+        _buildBranchSpecificCard(),
         _buildSubjectCard(
-            "Electro Techniques", 4, Icons.ev_station, 'electrical'),
+            "Fundamentals of Computer Programming", 4, Icons.code, 'fcp'),
+        _buildSubjectCard("Engineering Mechanics", 4, Icons.toys, 'mechanics'),
         _buildSubjectCard(
-            "Engineering Mathematics", 4, Icons.functions, 'maths'),
-        _buildSubjectCard("Basics of Electronics Engineering", 4,
-            Icons.battery_charging_full, 'electronics'),
-        _buildSubjectCard("Basic Mechanical Systems", 3, Icons.toys, 'bms'),
-        _buildSubjectCard(
-            "Fundamentals of Computer Programming", 5, Icons.code, 'computers'),
-        _buildSubjectCard("English and Communication Skills", 2,
-            Icons.local_library, 'english'),
-        _buildSubjectCard("Workshop", 2, Icons.settings, 'workshop')
+            "Physics of Materials and Nuclei", 4, Icons.category, 'physics'),
+        _buildSubjectCard("English and Professional Communication", 3,
+            Icons.person, 'english'),
+        _buildSubjectCard("Workshop Practice", 2, Icons.build, 'workshop')
       ],
+    );
+  }
+
+  Widget _buildBranchSpecificCard() {
+    return Card(
+        elevation: 7.0,
+        margin: EdgeInsets.all(10.0),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        // margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+        child: ExpansionTile(
+            children: <Widget>[
+              _buildListTile("Civil Engineering", Icons.domain, "civil"),
+              _buildListTile(
+                  "Computer Engineering", Icons.computer, "computers"),
+              _buildListTile(
+                  "Chemical Engineering", Icons.invert_colors, "chemical"),
+              _buildListTile("Electrical and Electronics Engineering",
+                  Icons.power, "electrical-electronics"),
+              _buildListTile(
+                  "Mechanical Engineering", Icons.directions_car, "mechanical"),
+              _buildListTile(
+                  "Applied Chemistry", Icons.ac_unit, "applied-chemistry"),
+              _buildListTile("Applied Mathematics", Icons.all_inclusive,
+                  "applied-maths"),
+              _buildListTile(
+                  "Applied Physics", Icons.flash_on, "applied-physics"),
+            ],
+            title: ListTile(
+              contentPadding:
+                  EdgeInsets.symmetric(horizontal: 7.0, vertical: 1.0),
+              leading: Container(
+                padding: EdgeInsets.only(right: 12.0),
+                decoration: new BoxDecoration(),
+                child: Icon(
+                  Icons.account_balance,
+                  size: 28,
+                ),
+              ),
+              title: Text(
+                "Branch Specific Course",
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              subtitle: Row(
+                children: <Widget>[
+                  Text("4 credits",
+                      style: TextStyle(
+                          color: Colors.grey, fontWeight: FontWeight.bold))
+                ],
+              ),
+            )));
+  }
+
+  Widget _buildListTile(String title, IconData icon, String key) {
+    return InkWell(
+      onTap: () {
+        _launchURL("https://github.com/godcrampy/svnit-101/raw/master/data/" +
+            key +
+            ".pdf");
+      },
+      child: ListTile(
+        leading: Icon(icon),
+        title: Text(title),
+        trailing: Icon(Icons.keyboard_arrow_right),
+      ),
     );
   }
 }

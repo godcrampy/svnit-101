@@ -18,7 +18,7 @@ class CurriculumPage extends StatelessWidget {
             bottom: TabBar(
               tabs: <Widget>[
                 Tab(
-                  icon: Icon(Icons.edit),
+                  icon: Icon(Icons.palette),
                   text: 'Drawing Semester',
                 ),
                 Tab(
