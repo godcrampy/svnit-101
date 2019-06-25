@@ -35,119 +35,121 @@ class SettingsState extends State {
     return SingleChildScrollView(
         child: Container(
       child: Column(children: <Widget>[
-        MergeSemantics(
-          child: ListTile(
-            leading: Icon(Icons.lightbulb_outline),
-            title: Text(
-              'Dark Mode',
-              style: TextStyle(fontSize: 20),
-            ),
-            trailing: Switch(
-              activeColor: Colors.deepOrange,
-              value: _lights,
-              onChanged: (bool value) {
-                setState(() {
-                  _lights = value;
-                  DynamicTheme.of(context).setBrightness(
-                      Theme.of(context).brightness == Brightness.dark
-                          ? Brightness.light
-                          : Brightness.dark);
-                });
-              },
-            ),
-            onTap: () {
-              setState(() {
-                _lights = !_lights;
-              });
-            },
-          ),
-        ),
+        _buildDarkModeTile(_lights),
         Divider(
           height: 10,
         ),
-        ListTile(
-          onTap: () {
-            LaunchReview.launch();
-            // setState(() {});
-          },
-          trailing: Icon(Icons.keyboard_arrow_right),
-          leading: Icon(Icons.star),
-          title: Text(
-            'Rate',
-            style: TextStyle(fontSize: 20),
-          ),
-        ),
-        ListTile(
-          onTap: () {
-            Share.share(
-                'SVNIT 101 \n https://play.google.com/store/apps/details?id=com.godcrampy.svnit_101');
-          },
-          trailing: Icon(Icons.keyboard_arrow_right),
-          leading: Icon(Icons.share),
-          title: Text('Share', style: TextStyle(fontSize: 20)),
-        ),
+        _buildReviewTile(),
+        _buildShareTile(),
         Divider(
           height: 10,
         ),
-        Card(
-            elevation: 8.0,
-            margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
-            child: Container(
-                child: Column(children: [
-              ListTile(
-                contentPadding:
-                    EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-                leading: Container(
-                  padding: EdgeInsets.only(right: 12.0),
-                  child: Icon(Smile.emo_laugh),
-                ),
-                title: Text("Handcrafted with ♥ by", style: TextStyle()),
-                // subtitle: Text("Intermediate", style: TextStyle(color: Colors.white)),
-
-                subtitle: Text("Sahil Bondre", style: TextStyle(fontSize: 20)),
-              ),
-              InkWell(
-                  onTap: () {
-                    _launchURL("https://github.com/godcrampy");
-                  },
-                  child: ListTile(
-                      // contentPadding:
-                      // EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-                      leading: Container(
-                        padding: EdgeInsets.only(right: 12.0),
-                        child: Icon(Smile.github_circled_1),
-                      ),
-                      trailing: Icon(Icons.keyboard_arrow_right),
-                      title: Text(
-                        "@godcrampy",
-                        style: TextStyle(
-                          color: Colors.blue,
-                        ),
-                      ))),
-              InkWell(
-                  onTap: () {
-                    _launchURL("https://github.com/godcrampy/svnit-101");
-                  },
-                  child: ListTile(
-                      // contentPadding:
-                      // EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-                      leading: Container(
-                        padding: EdgeInsets.only(right: 12.0),
-                        child: Icon(Icons.code),
-                      ),
-                      trailing: Icon(Icons.keyboard_arrow_right),
-                      title: Text(
-                        "Source Code",
-                        style: TextStyle(
-                          color: Colors.blue,
-                        ),
-                      ))),
-            ]))),
+        _buildMadeByCard(),
         SizedBox(
           height: 10,
         )
       ]),
     ));
+  }
+
+  Widget _buildDarkModeTile(bool lights) {
+    return MergeSemantics(
+      child: ListTile(
+        leading: Icon(Icons.lightbulb_outline),
+        title: Text(
+          'Dark Mode',
+          style: TextStyle(fontSize: 20),
+        ),
+        trailing: Switch(
+          activeColor: Colors.deepOrange,
+          value: lights,
+          onChanged: (bool value) {
+            setState(() {
+              lights = value;
+              DynamicTheme.of(context).setBrightness(
+                  Theme.of(context).brightness == Brightness.dark
+                      ? Brightness.light
+                      : Brightness.dark);
+            });
+          },
+        ),
+        onTap: () {
+          setState(() {
+            lights = !lights;
+          });
+        },
+      ),
+    );
+  }
+
+  Widget _buildReviewTile() {
+    return ListTile(
+      onTap: () {
+        LaunchReview.launch();
+        // setState(() {});
+      },
+      trailing: Icon(Icons.keyboard_arrow_right),
+      leading: Icon(Icons.star),
+      title: Text(
+        'Rate',
+        style: TextStyle(fontSize: 20),
+      ),
+    );
+  }
+
+  Widget _buildShareTile() {
+    return ListTile(
+      onTap: () {
+        Share.share(
+            'SVNIT 101 \n https://play.google.com/store/apps/details?id=com.godcrampy.svnit_101');
+      },
+      trailing: Icon(Icons.keyboard_arrow_right),
+      leading: Icon(Icons.share),
+      title: Text('Share', style: TextStyle(fontSize: 20)),
+    );
+  }
+
+  Widget _buildMadeByCard() {
+    return Card(
+        elevation: 8.0,
+        margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+        child: Container(
+            child: Column(children: [
+          _buildMadeByCardTitle(),
+          _buildMadeByCardLinkTile("https://github.com/godcrampy"),
+          _buildMadeByCardLinkTile("https://github.com/godcrampy/svnit-101"),
+        ])));
+  }
+
+  Widget _buildMadeByCardTitle() {
+    return ListTile(
+      contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+      leading: Container(
+        padding: EdgeInsets.only(right: 12.0),
+        child: Icon(Smile.emo_laugh),
+      ),
+      title: Text("Handcrafted by", style: TextStyle()),
+      subtitle: Text("Sahil Bondre", style: TextStyle(fontSize: 20)),
+    );
+  }
+
+  Widget _buildMadeByCardLinkTile(String url) {
+    return InkWell(
+        onTap: () {
+          _launchURL("https://github.com/godcrampy");
+        },
+        child: ListTile(
+            leading: Container(
+              padding: EdgeInsets.only(right: 12.0),
+              child: Icon(Smile.github_circled_1),
+            ),
+            trailing: Icon(Icons.keyboard_arrow_right),
+            title: Text(
+              "@godcrampy",
+              style: TextStyle(
+                color: Colors.blue,
+              ),
+            )));
   }
 
   Widget _buildAppBar() {

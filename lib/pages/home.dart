@@ -97,7 +97,6 @@ class HomeState extends State {
     ]);
   }
 
-//https://www.google.com/maps/@?api=1&map_action=map&center=21.163853,72.784871&zoom=16
   Widget _buildUrlCard(
       BuildContext context, String text, IconData icon, String url) {
     return GestureDetector(

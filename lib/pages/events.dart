@@ -8,17 +8,6 @@ class EventsPage extends StatelessWidget {
     return Scaffold(appBar: _buildAppBar(), body: _buildBody());
   }
 
-  Widget _buildAppBar() {
-    return AppBar(
-      leading: Icon(Icons.event),
-      backgroundColor: Color(0xff352245),
-      title: Text(
-        'Update',
-        style: TextStyle(fontSize: 25),
-      ),
-    );
-  }
-
   Widget _buildBody() {
     return StreamBuilder<QuerySnapshot>(
       stream: Firestore.instance.collection('posts').snapshots(),
@@ -31,7 +20,7 @@ class EventsPage extends StatelessWidget {
             return ListView(
               children:
                   snapshot.data.documents.map((DocumentSnapshot document) {
-                return _buildCard(context, document);
+                return _buildPost(context, document);
               }).toList(),
             );
         }
@@ -39,7 +28,7 @@ class EventsPage extends StatelessWidget {
     );
   }
 
-  Widget _buildCard(BuildContext context, DocumentSnapshot document) {
+  Widget _buildPost(BuildContext context, DocumentSnapshot document) {
     return Container(
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         child: InkWell(
@@ -47,39 +36,59 @@ class EventsPage extends StatelessWidget {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => EventPage(document)));
             },
-            child: Card(
-              elevation: 7,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5.0),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  ClipRRect(
-                    borderRadius:
-                        BorderRadius.vertical(top: Radius.circular(7)),
-                    child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: document['isLandscape']
-                          ? MediaQuery.of(context).size.width * 0.5
-                          : MediaQuery.of(context).size.width * 1.0,
-                      child: Image(
-                        image: NetworkImage(document['image']),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                  Container(
-                      // padding: EdgeInsets.symmetric(horizontal: 20),
-                      child: ListTile(
-                    subtitle: Text(document['subtitle']),
-                    trailing: Text(document['date']),
-                    title: Text(document['title'],
-                        style: TextStyle(
-                            fontSize: 22, fontWeight: FontWeight.w600)),
-                  )),
-                ],
-              ),
-            )));
+            child: _buildCard(context, document)));
+  }
+
+  Widget _buildCard(BuildContext context, DocumentSnapshot document) {
+    return Card(
+      elevation: 7,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(5.0),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          _buildCardImage(context, document),
+          _buildCardBody(document),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCardImage(BuildContext context, DocumentSnapshot document) {
+    return ClipRRect(
+      borderRadius: BorderRadius.vertical(top: Radius.circular(7)),
+      child: Container(
+        width: MediaQuery.of(context).size.width,
+        height: document['isLandscape']
+            ? MediaQuery.of(context).size.width * 0.5
+            : MediaQuery.of(context).size.width * 1.0,
+        child: Image(
+          image: NetworkImage(document['image']),
+          fit: BoxFit.cover,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildCardBody(DocumentSnapshot document) {
+    return Container(
+        child: ListTile(
+      subtitle: Text(document['subtitle']),
+      trailing: Text(document['date']),
+      title: Text(document['title'],
+          style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600)),
+    ));
+  }
+
+  Widget _buildAppBar() {
+    return AppBar(
+      leading: Icon(Icons.event),
+      backgroundColor: Color(0xff352245),
+      title: Text(
+        'Update',
+        style: TextStyle(fontSize: 25),
+      ),
+    );
   }
 }
