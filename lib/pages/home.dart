@@ -53,7 +53,7 @@ Widget _buildCalendarCard(BuildContext context, String text, IconData icon) {
   return GestureDetector(
       onTap: () {
         _launchURL(
-            "https://github.com/godcrampy/svnit-101-serve/raw/master/academic-calendar.pdf");
+            "https://github.com/godcrampy/svnit-101/raw/master/data/academic-calendar.pdf");
       },
       child: Card(
         color: Color(0xfff86942),
