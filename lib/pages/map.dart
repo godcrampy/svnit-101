@@ -5,8 +5,9 @@ import 'package:photo_view/photo_view.dart';
 class MapPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: PhotoView(
+    return Scaffold(
+        body: Container(
+            child: PhotoView(
       backgroundDecoration: Decoration.lerp(
           BoxDecoration(color: Colors.white),
           BoxDecoration(color: Colors.black),
@@ -14,6 +15,6 @@ class MapPage extends StatelessWidget {
       minScale: 0.1,
       maxScale: 2.5,
       imageProvider: AssetImage("assets/map.jpg"),
-    ));
+    )));
   }
 }

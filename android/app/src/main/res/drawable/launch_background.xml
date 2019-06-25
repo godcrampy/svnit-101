@@ -4,6 +4,6 @@
      <item>
         <bitmap
             android:gravity="center_horizontal"
-            android:src="@drawable/abc" />
+            android:src="@drawable/xyz" />
     </item>
 </layer-list>

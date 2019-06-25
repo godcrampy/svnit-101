@@ -71,7 +71,8 @@ class HomeState extends State {
       Row(mainAxisAlignment: MainAxisAlignment.center, children: [
         _buildCard(context, 'Curriculum', Icons.school),
         SizedBox(width: MediaQuery.of(context).size.width * 0.07),
-        _buildCard(context, 'Map', Icons.map),
+        _buildUrlCard(context, 'Map', Icons.map,
+            "https://www.google.com/maps/@?api=1&map_action=map&center=21.163853,72.784871&zoom=16"),
       ]),
       SizedBox(
         height: MediaQuery.of(context).size.height * 0.04,
@@ -85,7 +86,8 @@ class HomeState extends State {
         height: MediaQuery.of(context).size.height * 0.04,
       ),
       Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-        _buildCalendarCard(context, 'Calendar', Icons.event),
+        _buildUrlCard(context, 'Calendar', Icons.event,
+            "https://github.com/godcrampy/svnit-101/raw/master/data/academic-calendar.pdf"),
         SizedBox(width: MediaQuery.of(context).size.width * 0.07),
         _buildCard(context, 'Settings', Icons.settings),
       ]),
@@ -95,11 +97,12 @@ class HomeState extends State {
     ]);
   }
 
-  Widget _buildCalendarCard(BuildContext context, String text, IconData icon) {
+//https://www.google.com/maps/@?api=1&map_action=map&center=21.163853,72.784871&zoom=16
+  Widget _buildUrlCard(
+      BuildContext context, String text, IconData icon, String url) {
     return GestureDetector(
         onTap: () {
-          _launchURL(
-              "https://github.com/godcrampy/svnit-101/raw/master/data/academic-calendar.pdf");
+          _launchURL(url);
         },
         child: Card(
           color: Color(0xfff86942),

@@ -90,7 +90,7 @@ class CanteenPage extends StatelessWidget {
                 _buildFoodTile('Idly Sambhar', 20),
                 _buildFoodTile('Vada Sambhar', 20),
                 _buildFoodTile('Sada Dosa', 15),
-                _buildFoodTile('Masala Dosa', 30),
+                _buildFoodTile('Masala Dosa', 25),
                 _buildFoodTile('Rava Sada Dosa', 30),
                 _buildFoodTile('Rava Masala Dosa', 30),
                 _buildFoodTile('Mysore Masala Dosa', 30, isFav: true),
