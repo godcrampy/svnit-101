@@ -116,8 +116,10 @@ class SettingsState extends State {
         child: Container(
             child: Column(children: [
           _buildMadeByCardTitle(),
-          _buildMadeByCardLinkTile("https://github.com/godcrampy"),
-          _buildMadeByCardLinkTile("https://github.com/godcrampy/svnit-101"),
+          _buildMadeByCardLinkTile("@godcrampy", "https://github.com/godcrampy",
+              Smile.github_circled_1),
+          _buildMadeByCardLinkTile("Source Code",
+              "https://github.com/godcrampy/svnit-101", Icons.code),
         ])));
   }
 
@@ -133,19 +135,19 @@ class SettingsState extends State {
     );
   }
 
-  Widget _buildMadeByCardLinkTile(String url) {
+  Widget _buildMadeByCardLinkTile(String title, String url, IconData icon) {
     return InkWell(
         onTap: () {
-          _launchURL("https://github.com/godcrampy");
+          _launchURL(url);
         },
         child: ListTile(
             leading: Container(
               padding: EdgeInsets.only(right: 12.0),
-              child: Icon(Smile.github_circled_1),
+              child: Icon(icon),
             ),
             trailing: Icon(Icons.keyboard_arrow_right),
             title: Text(
-              "@godcrampy",
+              title,
               style: TextStyle(
                 color: Colors.blue,
               ),
