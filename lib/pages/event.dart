@@ -29,10 +29,12 @@ class EventPage extends StatelessWidget {
               children: <Widget>[
                 Image.network(document['image']),
                 Text(
-                  document['description'],
+                  document['description'].replaceAll("\\n", "\n"),
                   style: TextStyle(fontSize: 20),
                 ),
-                SizedBox(height: 100,)
+                SizedBox(
+                  height: 100,
+                )
               ],
             )));
   }
