@@ -50,6 +50,9 @@ class EventsPage extends StatelessWidget {
         children: <Widget>[
           _buildCardImage(context, document),
           _buildCardBody(document),
+          SizedBox(
+            height: 7,
+          )
         ],
       ),
     );
