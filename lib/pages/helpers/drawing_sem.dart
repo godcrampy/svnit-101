@@ -91,8 +91,8 @@ class DrawingSem extends StatelessWidget {
                   "Mechanical Engineering", Icons.directions_car, "mechanical"),
               _buildListTile(
                   "Applied Chemistry", Icons.ac_unit, "applied-chemistry"),
-              _buildListTile("Applied Mathematics", Icons.all_inclusive,
-                  "applied-maths"),
+              _buildListTile(
+                  "Applied Mathematics", Icons.all_inclusive, "applied-maths"),
               _buildListTile(
                   "Applied Physics", Icons.flash_on, "applied-physics"),
             ],

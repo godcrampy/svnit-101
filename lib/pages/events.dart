@@ -32,6 +32,8 @@ class EventsPage extends StatelessWidget {
     return Container(
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         child: InkWell(
+            splashColor: Colors.deepOrange,
+            borderRadius: BorderRadius.circular(7),
             onTap: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => EventPage(document)));
