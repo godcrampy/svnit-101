@@ -48,8 +48,6 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  assets:
-    - assets/map.jpg
   #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -73,6 +71,12 @@ flutter:
     - family: Smile
       fonts:
         - asset: assets/fonts/Smile.ttf
+    - family: Title
+      fonts:
+        - asset: assets/RobotoSlab-Regular.ttf
+    - family: Text
+      fonts:
+        - asset: assets/Roboto-Regular.ttf
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf
