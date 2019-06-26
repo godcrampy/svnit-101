@@ -137,6 +137,7 @@ class SettingsState extends State {
 
   Widget _buildMadeByCardLinkTile(String title, String url, IconData icon) {
     return InkWell(
+        splashColor: Colors.deepOrange,
         onTap: () {
           _launchURL(url);
         },

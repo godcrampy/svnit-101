@@ -12,6 +12,7 @@ class HomePage extends StatefulWidget {
 }
 
 class HomeState extends State {
+  bool _isTab;
   FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
   @override
   void initState() {
@@ -23,22 +24,161 @@ class HomeState extends State {
   var _color = Colors.white;
   @override
   Widget build(BuildContext context) {
+    _isTab = MediaQuery.of(context).size.width > 480 ? true : false;
     _color = Theme.of(context).brightness == Brightness.dark
         ? Color(0xff303030)
         : Colors.white;
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: Color(0xff352245),
-      body: SingleChildScrollView(
-          child: Column(
-        children: <Widget>[
-          SizedBox(height: MediaQuery.of(context).size.height * 0.05),
-          _buildTitle(context),
-          SizedBox(height: MediaQuery.of(context).size.height * 0.05),
-          _buildGrid(context)
-        ],
-      )),
+      body: _buildBody(),
     );
+  }
+
+  Widget _buildBody() {
+    return SingleChildScrollView(
+        child: Column(
+      children: <Widget>[
+        SizedBox(height: _isTab ? 36 : 24),
+        _buildTitle(context),
+        SizedBox(height: _isTab ? 36 : 24),
+        // SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+        Container(
+          child: _buildGrid(context),
+          width: _isTab ? 450 : 300,
+          height: _isTab ? 660 : 440,
+        ),
+      ],
+    ));
+  }
+
+  Widget _buildTitle(BuildContext context) {
+    final _random = Random();
+    return GestureDetector(
+        onLongPress: () {
+          _scaffoldKey.currentState.showSnackBar(SnackBar(
+              content: Text(messages[_random.nextInt(messages.length)]),
+              duration: Duration(seconds: 1)));
+        },
+        child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+          Text('SVNIT',
+              style: TextStyle(
+                  fontFamily: 'Oswald',
+                  fontSize: _isTab ? 100 : 72,
+                  color: Colors.white)),
+          Text('101',
+              style: TextStyle(
+                  fontFamily: 'Oswald',
+                  fontSize: _isTab ? 92 : 65,
+                  color: Color(0xfff86942))),
+        ]));
+  }
+
+  Widget _buildGrid(BuildContext context) {
+    return GridView.count(
+      primary: false,
+      padding: EdgeInsets.symmetric(horizontal: 20),
+      childAspectRatio: 1.00,
+      shrinkWrap: true,
+      mainAxisSpacing: _isTab ? 30 : 20.0,
+      crossAxisSpacing: _isTab ? 30 : 20.0,
+      crossAxisCount: 2,
+      children: _getCards(),
+    );
+  }
+
+  List<Widget> _getCards() {
+    return [
+      _buildCard(context, 'Curriculum', Icons.school),
+      _buildUrlCard(context, 'Map', Icons.map,
+          "https://www.google.com/maps/@?api=1&map_action=map&center=21.163853,72.784871&zoom=16"),
+      _buildCard(context, 'Updates', Icons.message),
+      _buildCard(context, 'Canteen', Icons.fastfood),
+      _buildUrlCard(context, 'Calendar', Icons.event,
+          "https://github.com/godcrampy/svnit-101/raw/master/data/academic-calendar.pdf"),
+      _buildCard(context, 'Settings', Icons.settings),
+    ];
+  }
+
+  Widget _buildCard(BuildContext context, String text, IconData icon) {
+    return InkWell(
+        borderRadius: BorderRadius.circular(4),
+        onTap: () {
+          Navigator.pushNamed(context, '/' + text.toLowerCase());
+        },
+        splashColor: Colors.deepOrange,
+        child: Card(
+          elevation: 15,
+          color: Color(0xfff86942),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(4.0),
+          ),
+          child: Container(
+              padding: EdgeInsets.all(10),
+              height: _isTab ? 180 : 120,
+              width: _isTab ? 180 : 120,
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      text,
+                      style: TextStyle(
+                          fontFamily: 'Oswald',
+                          fontSize: _isTab ? 27 : 22,
+                          color: _color),
+                    ),
+                    Icon(
+                      icon,
+                      color: _color,
+                      size: _isTab ? 40 : 36,
+                    )
+                  ])),
+        ));
+  }
+
+  Widget _buildUrlCard(
+      BuildContext context, String text, IconData icon, String url) {
+    return InkWell(
+        onTap: () {
+          _launchURL(url);
+        },
+        splashColor: Colors.deepOrange,
+        borderRadius: BorderRadius.circular(4),
+        child: Card(
+          elevation: 15,
+          color: Color(0xfff86942),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(4.0),
+          ),
+          child: Container(
+              padding: EdgeInsets.all(10),
+              height: _isTab ? 180 : 120,
+              width: _isTab ? 180 : 120,
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      text,
+                      style: TextStyle(
+                          fontFamily: 'Oswald',
+                          fontSize: _isTab ? 27 : 22,
+                          color: _color),
+                    ),
+                    Icon(
+                      icon,
+                      color: _color,
+                      size: _isTab ? 40 : 36,
+                    )
+                  ])),
+        ));
+  }
+
+  _launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 
   void firebaseCloudMessagingListeners() {
@@ -57,132 +197,5 @@ class HomeState extends State {
         print('on launch $message');
       },
     );
-  }
-
-  Widget _buildCard(BuildContext context, String text, IconData icon) {
-    return GestureDetector(
-        onTap: () {
-          Navigator.pushNamed(context, '/' + text.toLowerCase());
-        },
-        child: Card(
-          color: Color(0xfff86942),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15.0),
-          ),
-          child: Container(
-              padding: EdgeInsets.all(10),
-              height: MediaQuery.of(context).size.width * .35,
-              width: MediaQuery.of(context).size.width * .35,
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      text,
-                      style: TextStyle(
-                          fontFamily: 'Oswald',
-                          fontSize: MediaQuery.of(context).size.width * .07,
-                          color: _color),
-                    ),
-                    Icon(
-                      icon,
-                      color: _color,
-                      size: MediaQuery.of(context).size.width * .12,
-                    )
-                  ])),
-        ));
-  }
-
-  Widget _buildGrid(BuildContext context) {
-    return Column(children: [
-      Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-        _buildCard(context, 'Curriculum', Icons.school),
-        SizedBox(width: MediaQuery.of(context).size.width * 0.07),
-        _buildUrlCard(context, 'Map', Icons.map,
-            "https://www.google.com/maps/@?api=1&map_action=map&center=21.163853,72.784871&zoom=16"),
-      ]),
-      SizedBox(
-        height: MediaQuery.of(context).size.height * 0.04,
-      ),
-      Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-        _buildCard(context, 'Updates', Icons.message),
-        SizedBox(width: MediaQuery.of(context).size.width * 0.07),
-        _buildCard(context, 'Canteen', Icons.fastfood),
-      ]),
-      SizedBox(
-        height: MediaQuery.of(context).size.height * 0.04,
-      ),
-      Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-        _buildUrlCard(context, 'Calendar', Icons.event,
-            "https://github.com/godcrampy/svnit-101/raw/master/data/academic-calendar.pdf"),
-        SizedBox(width: MediaQuery.of(context).size.width * 0.07),
-        _buildCard(context, 'Settings', Icons.settings),
-      ]),
-      SizedBox(
-        height: 10,
-      )
-    ]);
-  }
-
-  Widget _buildUrlCard(
-      BuildContext context, String text, IconData icon, String url) {
-    return GestureDetector(
-        onTap: () {
-          _launchURL(url);
-        },
-        child: Card(
-          color: Color(0xfff86942),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15.0),
-          ),
-          child: Container(
-              padding: EdgeInsets.all(10),
-              height: MediaQuery.of(context).size.width * .35,
-              width: MediaQuery.of(context).size.width * .35,
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      text,
-                      style: TextStyle(
-                          fontFamily: 'Oswald',
-                          fontSize: MediaQuery.of(context).size.width * .07,
-                          color: _color),
-                    ),
-                    Icon(
-                      icon,
-                      color: _color,
-                      size: MediaQuery.of(context).size.width * .12,
-                    )
-                  ])),
-        ));
-  }
-
-  Widget _buildTitle(BuildContext context) {
-    final _random = new Random();
-    return InkWell(
-        onLongPress: () {
-          _scaffoldKey.currentState.showSnackBar(SnackBar(
-            content: Text(messages[_random.nextInt(messages.length)]),
-            duration: Duration(seconds: 1),
-          ));
-        },
-        child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Text('SVNIT',
-              style: TextStyle(
-                  fontFamily: 'Oswald', fontSize: 72, color: Colors.white)),
-          Text('101',
-              style: TextStyle(
-                  fontFamily: 'Oswald',
-                  fontSize: 65,
-                  color: Color(0xfff86942))),
-        ]));
-  }
-
-  _launchURL(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
   }
 }
