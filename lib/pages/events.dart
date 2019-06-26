@@ -65,12 +65,12 @@ class EventsPage extends StatelessWidget {
       borderRadius: BorderRadius.vertical(top: Radius.circular(7)),
       child: Container(
         width: MediaQuery.of(context).size.width,
-        height: document['isLandscape']
-            ? MediaQuery.of(context).size.width * 0.5
-            : MediaQuery.of(context).size.width * 1.0,
+        // height: document['isLandscape']
+            // ? MediaQuery.of(context).size.width * 0.5
+            // : MediaQuery.of(context).size.width * 1.0,
         child: Image(
           image: NetworkImage(document['image']),
-          fit: BoxFit.cover,
+          fit: BoxFit.fitWidth,
         ),
       ),
     );
@@ -91,7 +91,7 @@ class EventsPage extends StatelessWidget {
       leading: Icon(Icons.event),
       backgroundColor: Color(0xff352245),
       title: Text(
-        'Update',
+        'Updates',
         style: TextStyle(fontSize: 25),
       ),
     );
