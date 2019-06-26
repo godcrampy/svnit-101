@@ -190,6 +190,7 @@ class CanteenPage extends StatelessWidget {
           _buildFoodTile('Coffee', 10),
           _buildFoodTile('Cold Drink', 15),
           _buildFoodTile('Bottled Water', 20),
+          _buildFoodTile('Soft Drinks', 15),
         ]);
   }
 
