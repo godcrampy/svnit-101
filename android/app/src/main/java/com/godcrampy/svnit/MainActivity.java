@@ -1,4 +1,4 @@
-package com.godcrampy.svnit_101;
+package com.godcrampy.svnit;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;

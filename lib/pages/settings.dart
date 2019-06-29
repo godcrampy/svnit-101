@@ -101,7 +101,7 @@ class SettingsState extends State {
     return ListTile(
       onTap: () {
         Share.share(
-            'SVNIT 101 \n https://play.google.com/store/apps/details?id=com.godcrampy.svnit_101');
+            'Simplify your life in the campus with the SVNIT 101 App! \n https://play.google.com/store/apps/details?id=com.godcrampy.svnit');
       },
       trailing: Icon(Icons.keyboard_arrow_right),
       leading: Icon(Icons.share),

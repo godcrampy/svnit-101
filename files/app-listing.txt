@@ -1,0 +1,17 @@
+Title: SVNIT 101
+
+Short Description: Simplify your life in the campus with the SVNIT 101 App!
+
+Full Description:The SVNIT 101 app lets you to get along in the campus easily. The app allows easy access to course details, academic calendar and curriculum, so the next time you are pulling an all nighter, you can focus on the things that matter.
+
+With a detailed map of whole campus, you can explore all nooks and corners of the campus, and find your 'spot' (Bazinga!).
+
+The app also features the canteen menu with prices so you can crave on Mysore during a boring lecture ...zzzz.
+
+And with so many clubs, student chapters and events going around, you can get all the updates about the things you don't wanna miss.
+
+Woah you read all the way till here! You are amazing 😎.
+
+
+Applications type :Application
+category:education

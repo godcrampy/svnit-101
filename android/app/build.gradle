@@ -39,11 +39,11 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.godcrampy.svnit_101"
+        applicationId "com.godcrampy.svnit"
         minSdkVersion 21
         targetSdkVersion 28
         multiDexEnabled true
-        versionCode 3
+        versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
