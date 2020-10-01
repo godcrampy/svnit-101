@@ -1,7 +1,7 @@
 # SVNIT 101
 
 SVNIT 101 Android app made with flutter.
-# This App is specially for the help of SVNIT students.
+This App is specially for the help of SVNIT students.
 
 ## Getting Started
 
